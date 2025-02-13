@@ -1,7 +1,7 @@
 import connectDB from "@/lib/mongodb"
 
 export default async function handler(req, res) {
-  const client = connectDB()
+  const client = await connectDB()
 
   const database = client.db("au-event")
   const events = database.collection("event")
