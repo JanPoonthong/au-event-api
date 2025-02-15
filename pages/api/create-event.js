@@ -9,12 +9,14 @@ export default async function handler(req, res) {
   try {
     const client = await connectDB();
     const database = client.db("au-event");
-const categoriesCollection = database.collection("categories");
+    const categoriesCollection = database.collection("categories");
     const eventsCollection = database.collection("events");
 
-    const { name, date, location, category, description } = req.body;
+    const { name, date, time, category, description, imageURL } = req.body;
 
-    if (!name || !date || !location || !category) {
+    // date and time need to merge into new Date()
+
+    if (!name || !date || !time || !category || !description || !imageURL) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
@@ -28,9 +30,9 @@ const categoriesCollection = database.collection("categories");
 
     const newEvent = {
       name,
+      description: description,
+      imageURL,
       date: new Date(date),
-      location,
-      description: description || "",
       categoryId: new ObjectId(categoryId),
       createdAt: new Date(),
     };
@@ -44,4 +46,3 @@ const categoriesCollection = database.collection("categories");
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 }
-

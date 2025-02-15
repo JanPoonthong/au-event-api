@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const client = await connectDB()
 
   const database = client.db("au-event")
-  const events = database.collection("event")
+  const events = database.collection("events")
 
   const allEvents = await events.find({}).toArray();
 
