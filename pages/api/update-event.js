@@ -6,9 +6,9 @@ export default async function handler(req, res) {
   const database = client.db("au-event");
   const events = database.collection("events");
 
-  const {evnetId, updateData} = req.body;
+  const {eventId, updateData} = req.body;
 
-  if (!eventId || !ObjectId.isValid(evnetId)) {
+  if (!eventId || !ObjectId.isValid(eventId)) {
     return res.status(400).json({success: false, message: "Invalid event ID"})
   }
 
