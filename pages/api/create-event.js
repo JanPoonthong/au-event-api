@@ -13,6 +13,7 @@ export default async function handler(req, res) {
     const eventsCollection = database.collection("events");
 
     const { name, date, time, category, description, imageURL } = req.body;
+    console.log(req.body)
 
     if (!name || !date || !time || !category || !description || !imageURL) {
       return res.status(400).json({ success: false, message: "Missing required fields" });
@@ -54,7 +55,7 @@ export default async function handler(req, res) {
 
     const result = await eventsCollection.insertOne(newEvent);
 
-    res.status(201).json({ success: true, event: newEvent });
+    res.status(201).json({ success: true, data: newEvent });
 
   } catch (error) {
     console.error("Error inserting event:", error);
